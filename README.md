@@ -1,122 +1,164 @@
-📄 Conversational RAG — PDF Intelligent Chat with History
+# 🤖 Conversational RAG — PDF Chat With Memory  
+A smart **Retrieval-Augmented Generation (RAG)** application that allows users to **upload PDFs and chat with them**, powered by **Groq LLM**, **LangChain Classic**, **ChromaDB**, and **Streamlit**.  
+Supports **conversation history**, **question reformulation**, and **context-aware answers**.
 
-Conversational RAG is a State-Aware RAG (Retrieval-Augmented Generation) app built using ChromaDB, LangChain, HuggingFace Embeddings, and Groq LLM.
-It allows you to upload PDF documents and chat with them while maintaining the context of the conversation history.
+---
 
-🚀 Features
+## 🚀 Features
 
-PDF ingestion via Streamlit File Uploader
+- 📂 Upload and process **multiple PDF files**
+- 🔍 Automatic text splitting (500 chars, 200 overlap)
+- 🧠 **HuggingFace Embeddings** (`all-MiniLM-L6-v2`)
+- 🗃️ **ChromaDB** vector database for fast retrieval
+- 🧵 **Session-based chat memory** using `ChatMessageHistory`
+- 🧩 **History-aware retriever** (question rewriting)
+- ⚡ Ultra-fast inference via **Groq LLM (llama-3.1-8b-instant)**
+- 🧠 RAG pipeline using LangChain Classic chains
+- 🎛️ Clean, simple **Streamlit UI**
 
-Text chunking via RecursiveCharacterTextSplitter
+---
 
-Embeddings using HuggingFace (all-MiniLM-L6-v2)
+## 🖼️ Demo / Screenshots  
+*(Replace the placeholder when you add real images)*
 
-Persistent Vector Search with ChromaDB
+```
+[ Conversational RAG — UI Screenshot Placeholder ]
+```
 
-Answer generation using Groq (llama-3.1-8b-instant)
+---
 
-Chat History Awareness: Rephrases queries based on previous context
+## 🧱 Tech Stack
 
-Session Management: Maintains distinct chat sessions via Session ID
+| Component | Technology |
+|----------|------------|
+| UI | Streamlit |
+| LLM | Groq (llama-3.1-8b-instant) |
+| Framework | LangChain Classic |
+| Embeddings | HuggingFace MiniLM |
+| Vector Store | ChromaDB |
+| Document Loader | PyPDFLoader |
+| Memory | ChatMessageHistory |
 
-📦 Installation
+---
 
-1. Clone the project
+## 📦 Installation
 
-git clone [https://github.com/yourusername/Conversational-RAG.git](https://github.com/yourusername/Conversational-RAG.git)
-cd Conversational-RAG
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/yourusername/conversational-rag-pdf-chat.git
+cd conversational-rag-pdf-chat
+```
 
-
-2. Create a virtual environment
-
+### 2️⃣ Create a virtual environment
+```bash
 python -m venv venv
-
+```
 
 Activate:
 
-Windows
-
+**Windows**
+```bash
 venv\Scripts\activate
+```
 
-
-Mac/Linux
-
+**Mac/Linux**
+```bash
 source venv/bin/activate
+```
 
-
-3. Install dependencies
-
+### 3️⃣ Install dependencies
+```bash
 pip install -r requirements.txt
+```
 
+Suggested `requirements.txt`:
 
-(Note: Ensure you have streamlit, langchain, langchain-groq, langchain-community, langchain-huggingface, chromadb, pypdf, and python-dotenv installed)
+```
+streamlit
+python-dotenv
+langchain-classic
+langchain-core
+langchain-community
+langchain-chroma
+langchain-groq
+langchain-text-splitters
+langchain-huggingface
+pypdf
+```
 
-🔑 Environment Variables
+---
 
-Create a .env file in the root directory for your HuggingFace token:
+## 🔑 Environment Variables
 
-HF_TOKKEN=your_huggingface_access_token
+Create `.env`:
 
+```bash
+HF_TOKKEN=your_huggingface_token_here
+```
 
-Get your HF Access Token here: https://huggingface.co/settings/tokens
+⚠️ Use exact name `HF_TOKKEN` — your code uses this spelling.
 
-(Note: The Groq API Key is entered directly in the App UI)
+Groq API key is entered inside the UI.
 
-📘 How to Use
+---
 
-Run the app:
+## 📘 How to Use
 
+### Start the app
+```bash
 streamlit run app.py
+```
 
+### Steps
+1. Enter your **Groq API key**.  
+2. Enter **session ID** (default: `default_session`).  
+3. Upload one or more **PDF files**.  
+4. Ask questions related to the documents.  
+5. The system uses:
+   - Chat history  
+   - Reformulated queries  
+   - Retrieved chunks  
+   - Groq LLM for final answers  
 
-Enter your Groq API Key in the input field. (Get it here: https://console.groq.com/keys)
+---
 
-Enter a Session ID (default is provided) to manage chat history.
+## 🧩 Core Architecture (Key Snippets)
 
-Upload your PDF files using the file uploader.
+### Embeddings
+```python
+embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+```
 
-Ask questions! The app will contextualize your query based on history and answer from the PDF.
+### Groq LLM
+```python
+llm = ChatGroq(groq_api_key=api_key, model_name="llama-3.1-8b-instant")
+```
 
-🧱 Tech Stack
+### History-Aware Retriever
+```python
+history_aware_retriever = create_history_aware_retriever(
+    llm, retriever, contextualize_q_prompt
+)
+```
 
-Python
+### Conversational RAG Chain
+```python
+conversational_rag_chain = RunnableWithMessageHistory(
+    rag_chain,
+    get_session_history,
+    input_messages_key="input",
+    history_messages_key="chat_history",
+    output_messages_key="answer",
+)
+```
 
-Streamlit
+---
 
-LangChain (Core, Community, Groq, HuggingFace)
+## 🗂️ Project Structure
 
-ChromaDB (Vector Store)
-
-HuggingFace Embeddings (all-MiniLM-L6-v2)
-
-Groq LLM (llama-3.1-8b-instant)
-
-PyPDFLoader
-
-📁 Project Structure
-
-Conversational-RAG/
+```bash
+conversational-rag-pdf-chat/
 │
-├── app.py                 # Main application script
-├── .env                   # Environment variables (HF_TOKKEN)
-├── requirements.txt       # Dependencies
-└── README.md              # Documentation
-
-
-💡 Future Improvements
-
-Add "Clear History" button
-
-Support for uploading multiple file types (txt, docx)
-
-Sidebar for better session management
-
-Export chat history
-
-📝 License
-
-MIT License — free to use and modify.
-
-🙌 Credits
-
-Built using LangChain, ChromaDB, HuggingFace, and Groq.
+├── app.py
+├── requirements.txt
+├──
