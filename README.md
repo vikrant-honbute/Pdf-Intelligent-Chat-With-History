@@ -1,31 +1,30 @@
-📄 Conversational RAG — Intelligent PDF Chat
+📄 Conversational RAG — PDF Intelligent Chat with History
 
 Conversational RAG is a State-Aware RAG (Retrieval-Augmented Generation) app built using ChromaDB, LangChain, HuggingFace Embeddings, and Groq LLM.
-
-It allows you to upload multiple PDF documents and maintain a continuous conversation with them — the app remembers your chat history to provide context-aware answers.
+It allows you to upload PDF documents and chat with them while maintaining the context of the conversation history.
 
 🚀 Features
 
-PDF Ingestion using PyPDFLoader
+PDF ingestion via Streamlit File Uploader
 
-Text Chunking via RecursiveCharacterTextSplitter
+Text chunking via RecursiveCharacterTextSplitter
 
 Embeddings using HuggingFace (all-MiniLM-L6-v2)
 
-Vector Search with ChromaDB
+Persistent Vector Search with ChromaDB
 
-Intelligent Chat utilizing Groq (llama-3.1-8b-instant)
+Answer generation using Groq (llama-3.1-8b-instant)
 
-Context Awareness via RunnableWithMessageHistory
+Chat History Awareness: Rephrases queries based on previous context
 
-Session Management for maintaining chat state
+Session Management: Maintains distinct chat sessions via Session ID
 
 📦 Installation
 
 1. Clone the project
 
-git clone [https://github.com/your-username/conversational-rag.git](https://github.com/your-username/conversational-rag.git)
-cd conversational-rag
+git clone [https://github.com/yourusername/Conversational-RAG.git](https://github.com/yourusername/Conversational-RAG.git)
+cd Conversational-RAG
 
 
 2. Create a virtual environment
@@ -47,19 +46,21 @@ source venv/bin/activate
 
 3. Install dependencies
 
-pip install streamlit langchain langchain-groq langchain-community langchain-huggingface chromadb pypdf python-dotenv
+pip install -r requirements.txt
 
+
+(Note: Ensure you have streamlit, langchain, langchain-groq, langchain-community, langchain-huggingface, chromadb, pypdf, and python-dotenv installed)
 
 🔑 Environment Variables
 
-Create a .env file in the root directory and add your HuggingFace token.
-
-(Note: The code specifically looks for HF_TOKKEN as the variable name).
+Create a .env file in the root directory for your HuggingFace token:
 
 HF_TOKKEN=your_huggingface_access_token
 
 
-Get your HF Access Token here: HuggingFace Settings
+Get your HF Access Token here: https://huggingface.co/settings/tokens
+
+(Note: The Groq API Key is entered directly in the App UI)
 
 📘 How to Use
 
@@ -68,13 +69,13 @@ Run the app:
 streamlit run app.py
 
 
-Enter Groq API Key: In the input field provided on the screen, enter your Groq API Key (Get it here).
+Enter your Groq API Key in the input field. (Get it here: https://console.groq.com/keys)
 
-Set Session ID: Enter a generic Session ID (e.g., user1) to track your conversation history.
+Enter a Session ID (default is provided) to manage chat history.
 
-Upload PDFs: Use the file uploader to add your PDF documents.
+Upload your PDF files using the file uploader.
 
-Start Chatting: Ask questions! The system will reformulate your queries based on history and retrieve answers from the PDFs.
+Ask questions! The app will contextualize your query based on history and answer from the PDF.
 
 🧱 Tech Stack
 
@@ -82,35 +83,35 @@ Python
 
 Streamlit
 
-LangChain
+LangChain (Core, Community, Groq, HuggingFace)
 
-ChromaDB
+ChromaDB (Vector Store)
 
-HuggingFace Embeddings
+HuggingFace Embeddings (all-MiniLM-L6-v2)
 
-Groq LLM (Llama 3)
+Groq LLM (llama-3.1-8b-instant)
 
-PyPDF
+PyPDFLoader
 
 📁 Project Structure
 
 Conversational-RAG/
 │
 ├── app.py                 # Main application script
-├── .env                   # Environment variables (HF Token)
-├── requirements.txt       # Project dependencies
+├── .env                   # Environment variables (HF_TOKKEN)
+├── requirements.txt       # Dependencies
 └── README.md              # Documentation
 
 
 💡 Future Improvements
 
-Add sidebar for better UI navigation
+Add "Clear History" button
 
-Support for different file formats (TXT, DOCX)
+Support for uploading multiple file types (txt, docx)
 
-Option to select different Llama models
+Sidebar for better session management
 
-Clear chat history button
+Export chat history
 
 📝 License
 
