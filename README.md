@@ -1,164 +1,116 @@
-Pdf-Intelligent-Chat-With-History
+📚 Conversational RAG - Intelligent PDF Chat
 
-An intelligent conversational RAG (Retrieval-Augmented Generation) chatbot that lets you:
+📖 Overview
 
-Upload one or more PDF files
+This project is a Conversational Retrieval-Augmented Generation (RAG) application. It allows users to upload PDF documents and chat with them using natural language. Unlike standard RAG applications, this tool is state-aware, meaning it remembers the chat history and context, allowing for follow-up questions and a more natural conversation flow.
 
-Ask questions in natural language
+It leverages Groq's LPU inference engine for lightning-fast responses using the llama-3.1-8b-instant model and uses HuggingFace embeddings for vector search.
 
-Get context-aware answers grounded in the PDFs
+✨ Features
 
-Maintain chat history per session
+📄 Multi-PDF Support: Upload multiple PDF files at once to create a comprehensive knowledge base.
 
-Use Groq’s LLaMA 3.1 (8B Instant) for fast responses
+🧠 Context-Aware Chat: Rephrases user queries based on chat history to ensure the model understands follow-up questions.
 
-Built with Streamlit, LangChain, ChromaDB, and Groq.
+⚡ High-Speed Inference: Uses Groq API for near-instant text generation.
 
-🚀 Features
-📄 PDF Question Answering
+🔍 Vector Search: Utilizes Chroma vector store and HuggingFace embeddings (all-MiniLM-L6-v2) for accurate document retrieval.
 
-Upload single or multiple PDFs
+💾 Session Management: Maintains chat history within the active session.
 
-Load text using PyPDFLoader
+🛠️ Tech Stack
 
-Split documents into chunks using RecursiveCharacterTextSplitter
+Frontend: Streamlit
 
-Create embeddings with HuggingFaceEmbeddings (all-MiniLM-L6-v2)
+Orchestration: LangChain
 
-Store and search chunks using Chroma vector store
+LLM: Groq (Llama-3.1-8b-instant)
 
-💬 Conversational RAG
+Embeddings: HuggingFace (all-MiniLM-L6-v2)
 
-Uses a history-aware retriever to rewrite the user query using chat history
+Vector DB: ChromaDB
 
-Retrieves the most relevant chunks from your PDFs
+🚀 Getting Started
 
-Answers using the retrieved context
+Prerequisites
 
-Keeps answers short and concise (≈3 sentences, as per system prompt)
+Python 3.9 or higher.
 
-⚡ Powered by Groq
+A Groq API Key (Get it here).
 
-Uses ChatGroq with model: llama-3.1-8b-instant
+A HuggingFace Access Token (Get it here).
 
-Very low latency → good interactive experience in Streamlit
+Installation
 
-🧠 Chat History per Session
+Clone the repository:
 
-Session-based chat memory using:
-
-ChatMessageHistory
-
-RunnableWithMessageHistory
-
-Different session_id values → separate conversations
-
-🖥 Streamlit UI
-
-Input for Groq API key
-
-File uploader for PDFs
-
-Input for session ID
-
-Text box for questions
-
-Display of assistant answers and raw chat history
-
-📂 Project Structure
-project-root/
-│── app.py                 # Main Streamlit application
-│── requirements.txt       # Python dependencies
-│── .env                   # API keys & secrets (not committed)
-│── .gitignore             # Git ignore rules
-│── README.md              # Project documentation
-└── temp.pdf               # Temporary file created when processing uploads
-
-🔐 Environment Variables
-
-Create a .env file in the project root:
-
-GROQ_API_KEY=your_groq_api_key_here
-HF_TOKKEN=your_huggingface_token_here   # optional, matches your code variable name
+git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+cd your-repo-name
 
 
-Note: your code uses HF_TOKKEN (with double “K”), so the .env key must match exactly.
+Create a virtual environment (Recommended):
 
-🛠 Installation & Setup
-1️⃣ Clone the Repository
-git clone https://github.com/vikrant-honbute/Pdf-Intelligent-Chat-With-History.git
-cd Pdf-Intelligent-Chat-With-History
-
-2️⃣ Create a Virtual Environment
 python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
 
-Activate it (Windows):
+Install dependencies:
 
-venv\Scripts\activate
+pip install streamlit langchain langchain-groq langchain-openai langchain-community langchain-huggingface chromadb pypdf python-dotenv
 
-3️⃣ Install Dependencies
-pip install -r requirements.txt
 
-4️⃣ Run the Application
+Configuration
+
+Create a .env file in the root directory.
+
+Add your HuggingFace token to the file (Note: The code specifically looks for the variable name HF_TOKKEN):
+
+HF_TOKKEN=your_huggingface_access_token_here
+
+
+🏃‍♂️ Usage
+
+Run the Streamlit application:
+
 streamlit run app.py
 
 
-Then open the local URL shown in the terminal (usually http://localhost:8501).
+Interact with the App:
 
-🧩 How It Works (High Level)
+Enter your Groq API Key in the sidebar input field.
 
-User enters Groq API key in the UI.
+Enter a Session ID (or use the default).
 
-User uploads one or more PDF files.
+Upload one or more PDF files.
 
-PDFs are:
+Start chatting! Ask questions about the content of your PDFs.
 
-Loaded with PyPDFLoader
+🧠 How It Works
 
-Split into overlapping chunks by RecursiveCharacterTextSplitter
+Document Loading: The app loads PDFs using PyPDFLoader.
 
-Converted into embeddings using HuggingFaceEmbeddings
+Splitting & Embedding: Text is split into chunks of 500 characters (with 200 overlap) and converted into vectors using HuggingFace embeddings.
 
-Stored in a Chroma vector store.
+Retrieval: These vectors are stored in ChromaDB. When you ask a question, the system finds the most relevant chunks.
 
-User asks a question.
+History Awareness: A specialized chain (create_history_aware_retriever) reformulates your latest question based on previous messages to ensure the context is preserved (e.g., if you ask "What is his name?" after talking about a specific person).
 
-A history-aware retriever:
+Generation: The context and the reformulated question are sent to the Groq LLM to generate a concise answer.
 
-Reads past messages (chat_history)
-
-Reformulates the question into a standalone query if needed.
-
-Relevant chunks are retrieved from Chroma.
-
-ChatGroq (LLaMA 3.1 8B Instant) generates an answer using:
-
-System prompt
-
-Retrieved context
-
-Chat history.
-
-The answer and messages are stored in ChatMessageHistory for that session.
-
-💡 Tech Stack
-Component	Technology
-UI	Streamlit
-LLM	Groq – LLaMA 3.1 8B Instant
-Orchestration	LangChain (classic, core, community)
-Vector Store	Chroma
-Embeddings	HuggingFace MiniLM (all-MiniLM-L6-v2)
-PDF Loader	PyPDFLoader
-Memory	ChatMessageHistory + RunnableWithMessageHistory
 🤝 Contributing
 
-Issues, feature requests, and pull requests are welcome.
+Contributions are welcome! Please follow these steps:
 
-📜 License
+Fork the project.
 
-This project is licensed under the MIT License.
+Create your feature branch (git checkout -b feature/AmazingFeature).
 
-⭐ Support
+Commit your changes (git commit -m 'Add some AmazingFeature').
 
-If you find this project useful, please consider giving it a ⭐ on GitHub.
+Push to the branch (git push origin feature/AmazingFeature).
+
+Open a Pull Request.
+
+📝 License
+
+Distributed under the MIT License. See LICENSE for more information.
