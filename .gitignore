@@ -1,0 +1,36 @@
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+*.env
+.env.*
+venv/
+env/
+.venv/
+
+# ---- Streamlit ----
+.streamlit/
+
+# ---- LangChain / Chroma ----
+chroma/
+chroma_db/
+*.sqlite3
+
+# ---- Temporary files ----
+*.log
+*.tmp
+temp.pdf
+temp/
+cache/
+*.DS_Store
+
+# ---- VSCode ----
+.vscode/
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- OS files ----
+Thumbs.db
