@@ -1,116 +1,121 @@
-📚 Conversational RAG - Intelligent PDF Chat
+📄 Conversational RAG — Intelligent PDF Chat
 
-📖 Overview
+Conversational RAG is a State-Aware RAG (Retrieval-Augmented Generation) app built using ChromaDB, LangChain, HuggingFace Embeddings, and Groq LLM.
 
-This project is a Conversational Retrieval-Augmented Generation (RAG) application. It allows users to upload PDF documents and chat with them using natural language. Unlike standard RAG applications, this tool is state-aware, meaning it remembers the chat history and context, allowing for follow-up questions and a more natural conversation flow.
+It allows you to upload multiple PDF documents and maintain a continuous conversation with them — the app remembers your chat history to provide context-aware answers.
 
-It leverages Groq's LPU inference engine for lightning-fast responses using the llama-3.1-8b-instant model and uses HuggingFace embeddings for vector search.
+🚀 Features
 
-✨ Features
+PDF Ingestion using PyPDFLoader
 
-📄 Multi-PDF Support: Upload multiple PDF files at once to create a comprehensive knowledge base.
+Text Chunking via RecursiveCharacterTextSplitter
 
-🧠 Context-Aware Chat: Rephrases user queries based on chat history to ensure the model understands follow-up questions.
+Embeddings using HuggingFace (all-MiniLM-L6-v2)
 
-⚡ High-Speed Inference: Uses Groq API for near-instant text generation.
+Vector Search with ChromaDB
 
-🔍 Vector Search: Utilizes Chroma vector store and HuggingFace embeddings (all-MiniLM-L6-v2) for accurate document retrieval.
+Intelligent Chat utilizing Groq (llama-3.1-8b-instant)
 
-💾 Session Management: Maintains chat history within the active session.
+Context Awareness via RunnableWithMessageHistory
 
-🛠️ Tech Stack
+Session Management for maintaining chat state
 
-Frontend: Streamlit
+📦 Installation
 
-Orchestration: LangChain
+1. Clone the project
 
-LLM: Groq (Llama-3.1-8b-instant)
-
-Embeddings: HuggingFace (all-MiniLM-L6-v2)
-
-Vector DB: ChromaDB
-
-🚀 Getting Started
-
-Prerequisites
-
-Python 3.9 or higher.
-
-A Groq API Key (Get it here).
-
-A HuggingFace Access Token (Get it here).
-
-Installation
-
-Clone the repository:
-
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
+git clone [https://github.com/your-username/conversational-rag.git](https://github.com/your-username/conversational-rag.git)
+cd conversational-rag
 
 
-Create a virtual environment (Recommended):
+2. Create a virtual environment
 
 python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
 
-Install dependencies:
+Activate:
 
-pip install streamlit langchain langchain-groq langchain-openai langchain-community langchain-huggingface chromadb pypdf python-dotenv
+Windows
 
-
-Configuration
-
-Create a .env file in the root directory.
-
-Add your HuggingFace token to the file (Note: The code specifically looks for the variable name HF_TOKKEN):
-
-HF_TOKKEN=your_huggingface_access_token_here
+venv\Scripts\activate
 
 
-🏃‍♂️ Usage
+Mac/Linux
 
-Run the Streamlit application:
+source venv/bin/activate
+
+
+3. Install dependencies
+
+pip install streamlit langchain langchain-groq langchain-community langchain-huggingface chromadb pypdf python-dotenv
+
+
+🔑 Environment Variables
+
+Create a .env file in the root directory and add your HuggingFace token.
+
+(Note: The code specifically looks for HF_TOKKEN as the variable name).
+
+HF_TOKKEN=your_huggingface_access_token
+
+
+Get your HF Access Token here: HuggingFace Settings
+
+📘 How to Use
+
+Run the app:
 
 streamlit run app.py
 
 
-Interact with the App:
+Enter Groq API Key: In the input field provided on the screen, enter your Groq API Key (Get it here).
 
-Enter your Groq API Key in the sidebar input field.
+Set Session ID: Enter a generic Session ID (e.g., user1) to track your conversation history.
 
-Enter a Session ID (or use the default).
+Upload PDFs: Use the file uploader to add your PDF documents.
 
-Upload one or more PDF files.
+Start Chatting: Ask questions! The system will reformulate your queries based on history and retrieve answers from the PDFs.
 
-Start chatting! Ask questions about the content of your PDFs.
+🧱 Tech Stack
 
-🧠 How It Works
+Python
 
-Document Loading: The app loads PDFs using PyPDFLoader.
+Streamlit
 
-Splitting & Embedding: Text is split into chunks of 500 characters (with 200 overlap) and converted into vectors using HuggingFace embeddings.
+LangChain
 
-Retrieval: These vectors are stored in ChromaDB. When you ask a question, the system finds the most relevant chunks.
+ChromaDB
 
-History Awareness: A specialized chain (create_history_aware_retriever) reformulates your latest question based on previous messages to ensure the context is preserved (e.g., if you ask "What is his name?" after talking about a specific person).
+HuggingFace Embeddings
 
-Generation: The context and the reformulated question are sent to the Groq LLM to generate a concise answer.
+Groq LLM (Llama 3)
 
-🤝 Contributing
+PyPDF
 
-Contributions are welcome! Please follow these steps:
+📁 Project Structure
 
-Fork the project.
+Conversational-RAG/
+│
+├── app.py                 # Main application script
+├── .env                   # Environment variables (HF Token)
+├── requirements.txt       # Project dependencies
+└── README.md              # Documentation
 
-Create your feature branch (git checkout -b feature/AmazingFeature).
 
-Commit your changes (git commit -m 'Add some AmazingFeature').
+💡 Future Improvements
 
-Push to the branch (git push origin feature/AmazingFeature).
+Add sidebar for better UI navigation
 
-Open a Pull Request.
+Support for different file formats (TXT, DOCX)
+
+Option to select different Llama models
+
+Clear chat history button
 
 📝 License
 
-Distributed under the MIT License. See LICENSE for more information.
+MIT License — free to use and modify.
+
+🙌 Credits
+
+Built using LangChain, ChromaDB, HuggingFace, and Groq.
