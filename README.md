@@ -23,9 +23,10 @@ Supports **conversation history**, **question reformulation**, and **context-awa
 ## 📸 Screenshot
 
 <p align="center">
-  <img src="<img width="1919" height="915" alt="Screenshot 2025-12-05 162549" src="https://github.com/user-attachments/assets/8eda77e8-1c54-4599-a9c4-36721a7557d3" />
-" width="600">
+  <img src="<img width="1919" height="915" alt="UI" src="https://github.com/user-attachments/assets/e12ad591-0670-441b-a7a4-0fc9cca4ac63" />
+" width="600" />
 </p>
+
 
 
 
