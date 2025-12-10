@@ -19,7 +19,9 @@ Supports **conversation history**, **question reformulation**, and **context-awa
 ---
 
 ## 🖼️ Demo / Screenshots  
-*(Replace the placeholder when you add real images)*
+
+<img width="883" height="371" alt="image" src="https://github.com/user-attachments/assets/57fadbaa-76f5-4acf-9963-e253eb9d4e16" />
+
 
 ```
 [ Conversational RAG — UI Screenshot Placeholder ]
