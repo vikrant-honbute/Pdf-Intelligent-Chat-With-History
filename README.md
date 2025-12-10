@@ -20,7 +20,10 @@ Supports **conversation history**, **question reformulation**, and **context-awa
 
 ## 🖼️ Demo / Screenshots  
 
-<img width="883" height="371" alt="image" src="https://github.com/user-attachments/assets/57fadbaa-76f5-4acf-9963-e253eb9d4e16" />
+![App Screenshot](<img width="1919" height="915" alt="Screenshot 2025-12-05 162549" src="https://github.com/user-attachments/assets/dc4966be-35e9-4245-a010-afc399f4eb1e" />
+)
+
+
 
 
 ```
