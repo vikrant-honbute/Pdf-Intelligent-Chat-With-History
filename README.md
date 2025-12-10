@@ -22,10 +22,12 @@ Supports **conversation history**, **question reformulation**, and **context-awa
 
 ## 📸 Screenshot
 
+## 📸 UI Screenshot
+
 <p align="center">
-  <img src="[<img width="1919" height="915" alt="UI" src="https://github.com/user-attachments/assets/e12ad591-0670-441b-a7a4-0fc9cca4ac63](https://github.com/vikrant-honbute/Pdf-Intelligent-Chat-With-History/blob/main/Screenshot%202025-12-05%20162549.png)" />
-" width="600" />
+  <img src="Screenshot 2025-12-05 162549.png" width="600" />
 </p>
+
 
 
 
